@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  amount: 1
+  is_multiple: false
+  taks_type: one
+  measure_unit: one
+  list: one
+
+two:
+  name: MyString
+  amount: 1
+  is_multiple: false
+  taks_type: two
+  measure_unit: two
+  list: two

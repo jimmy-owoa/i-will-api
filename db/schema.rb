@@ -10,37 +10,64 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_11_180849) do
+ActiveRecord::Schema.define(version: 2020_05_29_194308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "events", force: :cascade do |t|
+  create_table "lists", force: :cascade do |t|
     t.string "name"
-    t.date "starts"
-    t.date "ends"
+    t.time "start_date"
+    t.time "end_date"
+    t.string "description"
+    t.string "code"
+    t.string "slug"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_lists_on_user_id"
+  end
+
+  create_table "measure_units", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "task_types", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tasks", force: :cascade do |t|
     t.string "name"
-    t.bigint "user_id", null: false
-    t.bigint "event_id", null: false
+    t.integer "amount"
+    t.boolean "is_multiple"
+    t.bigint "task_type_id", null: false
+    t.bigint "measure_unit_id", null: false
+    t.bigint "list_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_tasks_on_event_id"
-    t.index ["user_id"], name: "index_tasks_on_user_id"
+    t.index ["list_id"], name: "index_tasks_on_list_id"
+    t.index ["measure_unit_id"], name: "index_tasks_on_measure_unit_id"
+    t.index ["task_type_id"], name: "index_tasks_on_task_type_id"
+  end
+
+  create_table "tasks_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "task_id", null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "lastname"
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "tasks", "events"
-  add_foreign_key "tasks", "users"
+  add_foreign_key "lists", "users"
+  add_foreign_key "tasks", "lists"
+  add_foreign_key "tasks", "measure_units"
+  add_foreign_key "tasks", "task_types"
 end
