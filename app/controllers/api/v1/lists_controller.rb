@@ -4,9 +4,9 @@ module Api::V1
 
     # GET /lists
     def index
-      @lists = List.all
+      lists = List.as_list_json
 
-      render json: @lists
+      render json: lists
     end
 
     # GET /lists/1
