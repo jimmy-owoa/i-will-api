@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :tasks
       resources :task_types, only: [:index]
       resources :measure_units, only: [:index]
+      get 'get_lists', to: 'lists#get_lists'
     end
   end
 end
