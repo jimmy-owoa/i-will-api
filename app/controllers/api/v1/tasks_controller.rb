@@ -17,9 +17,12 @@ module Api::V1
     # POST /tasks
     def create
       @task = Task.new(task_params)
+      
+      @task.task_type_id = TaskType.where(name: params[:task_type_name]).first_or_create.id
+      @task.measure_unit_id = MeasureUnit.where(name: params[:measure_unit_name]).first_or_create.id 
 
       if @task.save
-        render json: @task, status: :created, location: @task
+        render json: @task, status: :created
       else
         render json: @task.errors, status: :unprocessable_entity
       end
@@ -47,7 +50,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def task_params
-        params.require(:task).permit(:name, :amount, :is_multiple, :taks_type_id, :measure_unit_id, :list_id)
+        params.require(:task).permit(:name, :amount, :is_multiple, :taks_type_id, :measure_unit_id, :list_id, :task_type_name, :measure_unit_name)
       end
   end
 end
