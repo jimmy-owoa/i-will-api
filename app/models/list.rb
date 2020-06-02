@@ -1,4 +1,7 @@
 class List < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+  
   belongs_to :user
   has_many :tasks
 
@@ -9,6 +12,7 @@ class List < ApplicationRecord
     lists.each do |list|
       data << {
         id: list.id,
+        slug: list.slug,
         name: list.name,
         description: list.description,
         code: list.code,
