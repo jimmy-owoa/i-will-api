@@ -41,8 +41,10 @@ class List < ApplicationRecord
       name: self.name,
       code: self.code,
       description: self.description,
-      start_date: I18n.l(self.start_date, format: "%d-%m-%Y %H:%M"),
-      end_date: I18n.l(self.end_date, format: "%d-%m-%Y %H:%M"),
+      start_date: I18n.l(self.start_date, format: "%d-%m-%Y"),
+      end_date: I18n.l(self.end_date, format: "%d-%m-%Y"),
+      start_time: I18n.l(self.start_date, format: "%H:%M"),
+      end_time: I18n.l(self.end_date, format: "%H:%M"),
       tasks: data_tasks
     }
 

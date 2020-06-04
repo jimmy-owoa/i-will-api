@@ -20,7 +20,6 @@ module Api::V1
 
       if @list.save
         params[:tasks].each do |task|
-          binding.pry
           task_type_id = TaskType.where(name: task[:task_type_name]).first_or_create.id
           measure_unit_id = MeasureUnit.where(name: task[:measure_unit_name]).first_or_create.id 
           Task.create(name: task[:name], amount: task[:amount], is_multiple: task[:is_multiple], task_type_id: task_type_id, measure_unit_id: measure_unit_id, list_id: @list.id)
