@@ -3,7 +3,7 @@ class List < ApplicationRecord
   friendly_id :name, use: :slugged
   
   belongs_to :user
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
 
   def self.as_list_json
     lists = self.all
