@@ -42,6 +42,19 @@ module Api::V1
       @task.destroy
     end
 
+    def add_task_to_user
+      task = Task.find(params[:task_id])
+
+      if params[:value]
+        @current_user.tasks << task
+      else
+        @current_user.tasks.delete(task)
+      end
+      
+      render json: params[:value]
+    end
+    
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_task

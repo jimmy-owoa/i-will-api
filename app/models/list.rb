@@ -29,11 +29,13 @@ class List < ApplicationRecord
     data_tasks = []
     tasks.each do |task|
       data_tasks << {
+        id: task.id,
         name: task.name,
         amount: task.amount,
         is_multiple: task.is_multiple,
         task_type_name: task.task_type.name,
-        measure_unit_name: task.measure_unit.name
+        measure_unit_name: task.measure_unit.name,
+        check: task.users.present? ? true : false
       }
     end
     
@@ -47,7 +49,8 @@ class List < ApplicationRecord
       end_time: I18n.l(self.end_date, format: "%H:%M"),
       full_start_date: self.start_date,
       full_end_date: self.end_date,
-      tasks: data_tasks
+      tasks: data_tasks,
+      slug: self.slug
     }
 
     data
