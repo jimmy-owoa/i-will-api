@@ -32,6 +32,7 @@ module Api::V1
 
     # PATCH/PUT /lists/1
     def update
+      # binding.pry
       if @list.update(list_params)
         render json: @list
       else

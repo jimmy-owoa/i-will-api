@@ -32,8 +32,8 @@ class List < ApplicationRecord
         name: task.name,
         amount: task.amount,
         is_multiple: task.is_multiple,
-        task_type: task.task_type.name,
-        measure_unit: task.measure_unit.name
+        task_type_name: task.task_type.name,
+        measure_unit_name: task.measure_unit.name
       }
     end
     
@@ -45,6 +45,8 @@ class List < ApplicationRecord
       end_date: I18n.l(self.end_date, format: "%d-%m-%Y"),
       start_time: I18n.l(self.start_date, format: "%H:%M"),
       end_time: I18n.l(self.end_date, format: "%H:%M"),
+      full_start_date: self.start_date,
+      full_end_date: self.end_date,
       tasks: data_tasks
     }
 
