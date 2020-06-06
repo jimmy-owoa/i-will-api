@@ -23,7 +23,7 @@ class List < ApplicationRecord
     data
   end
 
-  def as_show_json
+  def as_show_json(current_user)
     tasks = self.tasks
     
     data_tasks = []
@@ -35,7 +35,7 @@ class List < ApplicationRecord
         is_multiple: task.is_multiple,
         task_type_name: task.task_type.name,
         measure_unit_name: task.measure_unit.name,
-        check: task.users.present? ? true : false
+        check: task.user_ids.include?(current_user.id) ? true : false
       }
     end
     

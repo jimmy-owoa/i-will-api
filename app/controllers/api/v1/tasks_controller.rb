@@ -44,14 +44,16 @@ module Api::V1
 
     def add_task_to_user
       task = Task.find(params[:task_id])
+      value_task = !params[:value]
 
-      if params[:value]
+      # binding.pry
+      if value_task
         @current_user.tasks << task
       else
         @current_user.tasks.delete(task)
       end
       
-      render json: params[:value]
+      render json: @current_user.tasks, status: 200
     end
     
 

@@ -11,7 +11,7 @@ module Api::V1
 
     # GET /lists/1
     def show
-      render json: @list.as_show_json
+      render json: @list.as_show_json(@current_user)
     end
 
     # POST /lists
