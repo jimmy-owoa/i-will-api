@@ -35,7 +35,7 @@ class List < ApplicationRecord
         is_multiple: task.is_multiple,
         task_type_name: task.task_type.name,
         measure_unit_name: task.measure_unit.name,
-        check: task.user_ids.include?(current_user.id) ? true : false
+        selected_task: task.user_ids.include?(current_user.id) ? true : false
       }
     end
     

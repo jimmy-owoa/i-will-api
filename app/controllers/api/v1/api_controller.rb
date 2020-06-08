@@ -3,13 +3,8 @@ class Api::V1::ApiController < ApplicationController
 
   def get_current_user
     @current_user = User.find(2)
-
-    data = {
-      current_user: @current_user,
-      tasks: @current_user.tasks.pluck(:id)
-    }
-
-    render json: data
+    
+    render json: @current_user
   end
 
   def get_user
