@@ -24,7 +24,7 @@ class List < ApplicationRecord
   end
 
   def as_show_json(current_user)
-    tasks = self.tasks
+    tasks = self.tasks.order(:id)
     
     data_tasks = []
     tasks.each do |task|

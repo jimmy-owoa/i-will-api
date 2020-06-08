@@ -34,6 +34,18 @@ module Api::V1
     def update
       if @list.update(list_params)
         render json: @list
+        params[:tasks].each do |task|
+          task_type_id = TaskType.where(name: task[:task_type_name]).first_or_create.id
+          measure_unit_id = MeasureUnit.where(name: task[:measure_unit_name]).first_or_create.id 
+          task_item = Task.find(task[:id]) rescue nil
+          
+          #binding.pry
+          if task_item.present?
+            task_item.update(name: task[:name], amount: task[:amount], is_multiple: task[:is_multiple], task_type_id: task_type_id, measure_unit_id: measure_unit_id)
+          else
+            Task.create(name: task[:name], amount: task[:amount], is_multiple: task[:is_multiple], task_type_id: task_type_id, measure_unit_id: measure_unit_id, list_id: @list.id)
+          end
+        end
       else
         render json: @list.errors, status: :unprocessable_entity
       end
