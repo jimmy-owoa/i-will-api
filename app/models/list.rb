@@ -28,6 +28,21 @@ class List < ApplicationRecord
     
     data_tasks = []
     tasks.each do |task|
+      if task.users.present? && !task.user_ids.include?(current_user.id) && !task.is_multiple
+        selection_disabled = true
+      else
+        selection_disabled = false
+      end
+
+      if task.users.present? && !task.is_multiple 
+        selected_task = true
+      elsif task.user_ids.include?(current_user.id) && task.is_multiple
+        selected_task = true
+      else
+        selected_task = false
+      end
+
+
       data_tasks << {
         id: task.id,
         name: task.name,
@@ -35,8 +50,9 @@ class List < ApplicationRecord
         is_multiple: task.is_multiple,
         task_type_name: task.task_type.name,
         measure_unit_name: task.measure_unit.name,
-        selected_task: task.user_ids.include?(current_user.id) ? true : false,
-        task_editable: task.users.present? ? false : true
+        selected_task: selected_task,
+        task_editable: task.users.present? ? false : true,
+        selection_disabled: selection_disabled
       }
     end
     
