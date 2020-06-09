@@ -4,9 +4,9 @@ module Api::V1
 
     # GET /task_types
     def index
-      @task_types = TaskType.all
+      task_types = TaskType.all.pluck(:name)
 
-      render json: @task_types
+      render json: task_types
     end
 
     # GET /task_types/1
