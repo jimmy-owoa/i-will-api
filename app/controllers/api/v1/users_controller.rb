@@ -1,9 +1,5 @@
 module Api::V1
   class UsersController < ApiController
-    before_action do 
-      authenticate_cookie
-    end
-
     before_action :set_user, only: [:show, :update, :destroy]
 
     # GET /users

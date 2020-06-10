@@ -4,11 +4,8 @@ class ApplicationController < ActionController::API
   def authenticate_cookie
     auth_header = request.headers["Authorization"]
     token = auth_header.split(" ").last rescue nil
-    decoded_token = JsonWebToken.decode(token)
-    # binding.pry
-    if decoded_token
-      @current_user = User.find_by(id: decoded_token["user_id"])
-    end
+    decoded_token = JsonWebToken.decode(token) rescue nil
+    @current_user = User.find_by(id: decoded_token["user_id"]) rescue nil
     if @current_user then return true else render json: {status: 'unauthorized', code: 401} end
   end
 

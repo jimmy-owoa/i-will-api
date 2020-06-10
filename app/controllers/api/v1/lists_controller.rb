@@ -1,6 +1,5 @@
 module Api::V1
   class ListsController < ApiController
-    before_action :authenticate_cookie
     before_action :set_list, only: [:show, :update, :destroy]
 
     # GET /lists

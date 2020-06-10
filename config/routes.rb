@@ -8,9 +8,9 @@ Rails.application.routes.draw do
       resources :task_types, only: [:index]
       resources :measure_units, only: [:index]
       
-      post 'sign_in', to: 'api#create'
-      delete 'sign_out', to: 'api#destroy'
-      get 'me', to: 'api#me'
+      post 'sign_in', to: 'sessions#create'
+      delete 'sign_out', to: 'sessions#destroy'
+      get 'me', to: 'sessions#me'
 
       get 'get_lists', to: 'lists#get_lists'
       post 'add_task_user', to: 'tasks#add_task_to_user'

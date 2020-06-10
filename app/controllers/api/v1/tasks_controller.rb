@@ -1,6 +1,5 @@
 module Api::V1
   class TasksController < ApiController
-    before_action :authenticate_cookie
     before_action :set_task, only: [:show, :update, :destroy]
 
     # GET /tasks

@@ -1,6 +1,5 @@
 module Api::V1
   class MeasureUnitsController < ApiController
-    before_action :authenticate_cookie
     before_action :set_measure_unit, only: [:show, :update, :destroy]
 
     # GET /measure_units
