@@ -1,5 +1,6 @@
 module Api::V1
   class TaskTypesController < ApiController
+    before_action :authenticate_cookie
     before_action :set_task_type, only: [:show, :update, :destroy]
 
     # GET /task_types

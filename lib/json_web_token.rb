@@ -1,4 +1,4 @@
-module CoreModules::JsonWebToken
+class JsonWebToken
   require 'jwt'
   JWT_SECRET = "redexa"
 

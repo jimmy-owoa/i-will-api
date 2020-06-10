@@ -1,5 +1,9 @@
 module Api::V1
   class UsersController < ApiController
+    before_action do 
+      authenticate_cookie
+    end
+
     before_action :set_user, only: [:show, :update, :destroy]
 
     # GET /users
@@ -11,7 +15,7 @@ module Api::V1
 
     # GET /users/1
     def show
-      render json: @user
+      render json: current_user
     end
 
     # POST /users
