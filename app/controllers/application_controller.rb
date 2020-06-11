@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   include ActionController::Cookies
 
   def authenticate_cookie
-    auth_header = request.headers["Authorization"]
+    auth_header = request.headers["auth-token"]
     token = auth_header.split(" ").last rescue nil
     decoded_token = JsonWebToken.decode(token) rescue nil
     @current_user = User.find_by(id: decoded_token["user_id"]) rescue nil

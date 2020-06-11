@@ -1,7 +1,5 @@
 class Api::V1::SessionsController < ApplicationController
-  before_action only: [:destroy, :me] do 
-    authenticate_cookie
-  end
+  before_action :authenticate_cookie, only: [:destroy, :me]
 
   def destroy
     user = current_user
@@ -21,12 +19,7 @@ class Api::V1::SessionsController < ApplicationController
       login_hash = User.handle_login(email, password)
       if login_hash
         cookies.signed[:jwt] = {value:  login_hash[:auth_token], httponly: true}
-        render json: {success: true, user: {
-          user_id: login_hash[:user_id],
-          name: login_hash[:name],
-          auth_token: login_hash[:auth_token]
-         }
-        }
+        render json: {success: true, user: login_hash }
       else
         render json: {status: 'incorrect email or password', code: 422}  
       end
