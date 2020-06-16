@@ -11,7 +11,7 @@ module Api::V1
 
     # GET /users/1
     def show
-      render json: @user
+      render json: current_user
     end
 
     # POST /users
