@@ -1,6 +1,7 @@
 module Api::V1
   class UsersController < ApiController
     before_action :set_user, only: [:show, :update, :destroy]
+    skip_before_action :authenticate_cookie
 
     # GET /users
     def index
@@ -17,11 +18,13 @@ module Api::V1
     # POST /users
     def create
       @user = User.new(user_params)
-
+      @user.password = params[:password]
+      @user.password_confirmation = params[:password_confirmation]
+       
       if @user.save
-        render json: @user, status: :created, location: @user
+        render json: { status: "ok", message: "successful sign up"}, status: :created
       else
-        render json: @user.errors, status: :unprocessable_entity
+        render json: { status: "error", errors: @user.errors}, status: :unprocessable_entity
       end
     end
 
@@ -47,7 +50,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def user_params
-        params.require(:user).permit(:name, :email)
+        params.require(:user).permit(:name, :lastname, :email, :legal_number, :password)
       end
   end
 end
