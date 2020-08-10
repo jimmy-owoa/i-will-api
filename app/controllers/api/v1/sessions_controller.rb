@@ -21,7 +21,7 @@ class Api::V1::SessionsController < ApplicationController
         cookies.signed[:jwt] = {value:  login_hash[:auth_token], httponly: true}
         render json: {success: true, user: login_hash }
       else
-        render json: {status: 'incorrect email or password', code: 422}  
+        render json: {success: false, message: 'incorrect email or password', code: 422}  
       end
     else
       render json: {status: 'specify email address and password', code: 422}
