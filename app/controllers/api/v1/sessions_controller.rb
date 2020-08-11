@@ -12,16 +12,16 @@ class Api::V1::SessionsController < ApplicationController
   end
 
   def create
-    email = params["email"]
+    legal_number = params["legal_number"]
     password = params["password"]
 
-    if email && password
-      login_hash = User.handle_login(email, password)
+    if legal_number && password
+      login_hash = User.handle_login(legal_number, password)
       if login_hash
         cookies.signed[:jwt] = {value:  login_hash[:auth_token], httponly: true}
         render json: {success: true, user: login_hash }
       else
-        render json: {status: 'incorrect email or password', code: 422}  
+        render json: {success: false, message: 'incorrect email or password', code: 422}  
       end
     else
       render json: {status: 'specify email address and password', code: 422}

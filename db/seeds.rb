@@ -7,6 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create([
-  {name: 'Usuario prueba 1', email: 'user01@email.cl', password: 'iwill2020', password_confirmation: 'iwill2020'},
-  {name: 'Usuario prueba 2', email: 'user02@email.cl', password: 'iwill2020', password_confirmation: 'iwill2020'},
+  {name: 'Usuario prueba 1', legal_number: '123456-7',email: 'user01@email.cl', password: 'iwill2020', password_confirmation: 'iwill2020'},
+  {name: 'Usuario prueba 2', legal_number: '123457-7',email: 'user02@email.cl', password: 'iwill2020', password_confirmation: 'iwill2020'},
 ])
