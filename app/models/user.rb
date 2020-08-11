@@ -5,6 +5,9 @@ class User < ApplicationRecord
   has_many :lists
   has_and_belongs_to_many :tasks
 
+  validates :email, uniqueness: { case_sensitive: false }
+  validates :legal_number, uniqueness: { case_sensitive: false }
+
   def self.handle_login(legal_number, password)
     user = User.find_by(legal_number: legal_number)
     if user && user.authenticate(password)
