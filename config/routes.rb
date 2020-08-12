@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users
+      resources :groups
+      resources :events
       resources :lists
       resources :tasks
       resources :task_types, only: [:index]
