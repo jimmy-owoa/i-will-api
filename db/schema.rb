@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_172339) do
   end
 
   create_table "members", force: :cascade do |t|
+    t.datetime "admin_at"
     t.datetime "approved_at"
     t.datetime "desactivated_at"
     t.bigint "group_id", null: false

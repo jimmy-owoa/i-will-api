@@ -1,6 +1,7 @@
 class CreateMembers < ActiveRecord::Migration[6.0]
   def change
     create_table :members do |t|
+      t.datetime :admin_at
       t.datetime :approved_at
       t.datetime :desactivated_at
       t.references :group, null: false, foreign_key: true
