@@ -35,7 +35,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def group_params
-        params.require(:group).permit(:name, :description, :address, :commune_id,:image)
+        params.require(:group).permit(:name, :description, :address, :commune_id, :image)
       end
   end
 end

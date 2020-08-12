@@ -35,7 +35,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def event_params
-        params.require(:event).permit(:name, :description, :address, :quotes, :starts_at, :ends_at, :commune_id, :group_id,:image)
+        params.require(:event).permit(:name, :description, :address, :quotes, :starts_at, :ends_at, :commune_id, :group_id, :image)
       end
   end
 end

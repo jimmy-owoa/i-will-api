@@ -3,6 +3,7 @@ class User < ApplicationRecord
   rolify
   has_secure_password
 
+  has_one_attached :image
   has_many :users
   has_many :lists
   has_many :members
