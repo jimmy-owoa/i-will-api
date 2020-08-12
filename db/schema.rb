@@ -10,10 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_02_160520) do
+ActiveRecord::Schema.define(version: 2020_08_11_172339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "communes", force: :cascade do |t|
+    t.string "name"
+    t.bigint "region_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["region_id"], name: "index_communes_on_region_id"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "address"
+    t.integer "quotes"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.bigint "commune_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["commune_id"], name: "index_events_on_commune_id"
+    t.index ["group_id"], name: "index_events_on_group_id"
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -24,6 +53,16 @@ ActiveRecord::Schema.define(version: 2020_06_02_160520) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.text "description"
+    t.bigint "commune_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["commune_id"], name: "index_groups_on_commune_id"
   end
 
   create_table "lists", force: :cascade do |t|
@@ -44,6 +83,25 @@ ActiveRecord::Schema.define(version: 2020_06_02_160520) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.datetime "approved_at"
+    t.datetime "desactivated_at"
+    t.bigint "group_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_members_on_group_id"
+    t.index ["user_id"], name: "index_members_on_user_id"
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string "name"
+    t.bigint "country_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_regions_on_country_id"
   end
 
   create_table "task_types", force: :cascade do |t|
@@ -76,9 +134,19 @@ ActiveRecord::Schema.define(version: 2020_06_02_160520) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password_digest"
+    t.string "legal_number"
+    t.string "lastname"
   end
 
+  add_foreign_key "communes", "regions"
+  add_foreign_key "events", "communes"
+  add_foreign_key "events", "groups"
+  add_foreign_key "groups", "communes"
   add_foreign_key "lists", "users"
+  add_foreign_key "members", "groups"
+  add_foreign_key "members", "users"
+  add_foreign_key "regions", "countries"
   add_foreign_key "tasks", "lists"
   add_foreign_key "tasks", "measure_units"
   add_foreign_key "tasks", "task_types"

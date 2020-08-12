@@ -3,6 +3,9 @@ class User < ApplicationRecord
 
   has_many :users
   has_many :lists
+  has_many :members
+  has_many :groups, through: :members
+  
   has_and_belongs_to_many :tasks
 
   validates :email, uniqueness: { case_sensitive: false }
