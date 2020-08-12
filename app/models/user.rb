@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  after_save :assign_default_role
   rolify
   has_secure_password
 
@@ -23,5 +24,9 @@ class User < ApplicationRecord
     else
       return false
     end
+  end
+
+  def assign_default_role
+    self.add_role(:user) if self.roles.blank?
   end
 end
