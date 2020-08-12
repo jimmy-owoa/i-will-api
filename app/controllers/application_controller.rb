@@ -13,7 +13,13 @@ class ApplicationController < ActionController::API
     if @current_user.blank?
       return false
     else
-      return @current_user
+      current_user = {
+        name: @current_user.name,
+        email: @current_user.email,
+        legal_number: @current_user.legal_number,
+        roles: @current_user.roles.pluck(:name)
+      }
+      return current_user
     end
   end
 end
