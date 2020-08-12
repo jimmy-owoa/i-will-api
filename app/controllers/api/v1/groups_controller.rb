@@ -27,6 +27,12 @@ module Api::V1
 
     end
 
+    def get_regions
+      regions = Region.pluck(:id, :name).map{ |id, name| { id: id, name: name }}
+
+      render json: { status: "ok", regions: regions}, status: :ok
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_group
