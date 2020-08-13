@@ -22,8 +22,23 @@ class Group < ApplicationRecord
         image: group.get_image_url(),
         address: group.address,
         members: group.members.try(:count),
+        slug: group.slug
       }
     end
+
+    data
+  end
+
+  def as_show_json
+    data = {
+      name: self.name,
+      description: self.description,
+      address: self.address,
+      region_id: self.commune.region.id,
+      commune_id: self.commune_id,
+      image: self.get_image_url(),
+      slug: self.slug,
+    }
 
     data
   end

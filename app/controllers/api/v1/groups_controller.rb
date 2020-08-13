@@ -11,7 +11,7 @@ module Api::V1
 
     # GET /groups/1
     def show
-
+      render json: { status: "ok", group: @group.as_show_json }, status: :ok
     end
 
     # POST /groups
@@ -21,13 +21,17 @@ module Api::V1
       if group.save
         render json: { status: "ok", msg: "Grupo creado!" }, status: :created
       else
-        render json: @list.errors, status: :unprocessable_entity
+        render json: group.errors, status: :unprocessable_entity
       end
     end
 
     # PATCH/PUT /groups/1
     def update
-
+      if @group.update(group_params)
+        render json: { status: "ok", msg: "Grupo actualizado!"}, status: :ok
+      else
+        render json: @group.errors, status: :unprocessable_entity
+      end
     end
 
     # DELETE /groups/1
@@ -54,7 +58,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def group_params
-        params.require(:group).permit(:name, :description, :address, :commune_id, :image)
+        params.require(:group).permit(:name, :description, :address, :commune_id, :image, :slug)
       end
   end
 end
