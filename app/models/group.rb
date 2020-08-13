@@ -18,7 +18,7 @@ class Group < ApplicationRecord
       data << {
         id: group.id,
         name: group.name,
-        description: group.description,
+        description: group.get_limited_description,
         image: group.get_image_url(),
         address: group.address,
         members: group.members.try(:count),
@@ -30,5 +30,9 @@ class Group < ApplicationRecord
 
   def get_image_url
     self.image.attached? ? url_for(self.image) : nil
+  end
+
+  def get_limited_description
+    self.description.first(250) + "..."
   end
 end
