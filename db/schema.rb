@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_12_183409) do
+ActiveRecord::Schema.define(version: 2020_08_13_170111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,7 +83,9 @@ ActiveRecord::Schema.define(version: 2020_08_12_183409) do
     t.bigint "commune_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
     t.index ["commune_id"], name: "index_groups_on_commune_id"
+    t.index ["slug"], name: "index_groups_on_slug", unique: true
   end
 
   create_table "lists", force: :cascade do |t|

@@ -11,7 +11,7 @@ module Api::V1
 
     # GET /groups/1
     def show
-
+      render json: @group.one_as_json
     end
 
     # POST /groups

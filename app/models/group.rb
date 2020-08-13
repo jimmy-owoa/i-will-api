@@ -19,12 +19,26 @@ class Group < ApplicationRecord
         id: group.id,
         name: group.name,
         description: group.get_limited_description,
+        slug: group.slug,
         image: group.get_image_url(),
         address: group.address,
-        members: group.members.try(:count),
+        members: group.members.count,
       }
     end
 
+    data
+  end
+
+  def one_as_json
+    data = {
+      id: self.id, 
+      name: self.name,
+      description: self.description,
+      slug: self.slug,
+      image: self.get_image_url(),
+      address: self.address,
+      members: self.members.count,
+    }
     data
   end
 
