@@ -4,7 +4,9 @@ module Api::V1
 
     # GET /groups
     def index
+      groups = Group.all_as_json
 
+      render json: groups
     end
 
     # GET /groups/1
