@@ -50,7 +50,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def user_params
-        params.require(:user).permit(:name, :lastname, :email, :legal_number, :password)
+        params.require(:user).permit(:name, :lastname, :email, :legal_number, :password, :image)
       end
   end
 end

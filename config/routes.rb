@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users
+      resources :groups
+      resources :events
       resources :lists
       resources :tasks
       resources :task_types, only: [:index]
@@ -13,6 +15,7 @@ Rails.application.routes.draw do
       get 'me', to: 'sessions#me'
 
       get 'get_lists', to: 'lists#get_lists'
+      get 'regions', to: 'groups#get_regions'
       post 'add_task_user', to: 'tasks#add_task_to_user'
     end
   end
