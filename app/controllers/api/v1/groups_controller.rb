@@ -14,7 +14,13 @@ module Api::V1
 
     # POST /groups
     def create
+      group = Group.new(group_params)
 
+      if group.save
+        render json: { status: "ok", msg: "Grupo creado!" }, status: :created
+      else
+        render json: @list.errors, status: :unprocessable_entity
+      end
     end
 
     # PATCH/PUT /groups/1
