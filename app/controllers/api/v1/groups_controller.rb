@@ -28,9 +28,14 @@ module Api::V1
     end
 
     def get_regions
-      regions = Region.pluck(:id, :name).map{ |id, name| { id: id, name: name }}
+      data = []
+      Region.all.each do |item|
+        region = { id: item.id, name: item.name, communes: '' }
+        region[:communes] = item.communes.pluck(:id, :name).map{ |id, name| { id: id, name: name } }
+        data << region
+      end
 
-      render json: { status: "ok", regions: regions}, status: :ok
+      render json: { status: "ok", regions: data}, status: :ok
     end
 
     private
