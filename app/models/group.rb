@@ -1,5 +1,8 @@
 class Group < ApplicationRecord
   include Rails.application.routes.url_helpers
+  
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   has_one_attached :image
   has_many :members
